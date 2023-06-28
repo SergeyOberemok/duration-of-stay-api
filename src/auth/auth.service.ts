@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Observable, iif, mergeMap, of, take, throwError } from 'rxjs';
-import { User } from 'src/users/shared';
+import { User } from 'src/users/models/user.schema';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()

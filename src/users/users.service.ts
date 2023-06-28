@@ -1,16 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import { Observable, of } from 'rxjs';
-import { User } from './shared';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Observable, from } from 'rxjs';
+import { IUser } from './models/user.model';
+import { User } from './models/user.schema';
 
 @Injectable()
 export class UsersService {
-  private readonly users: User[] = [
-    new User({ email: 'john', password: '123' }),
-  ];
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
+  public findAll(): Observable<User[]> {
+    const usersResult = this.userModel.find().exec();
+
+    return from(usersResult);
+  }
   public findOne(email: string): Observable<User | undefined> {
-    const user: User = this.users.find((user: User) => user.email === email);
+    const userResult = this.userModel.findOne({ email }).exec();
 
-    return of(user);
+    return from(userResult);
+  }
+
+  public create(createUserDto: IUser): Observable<User> {
+    const userResult = new this.userModel(createUserDto).save();
+
+    return from(userResult);
   }
 }
