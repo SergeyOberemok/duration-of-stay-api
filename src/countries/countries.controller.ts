@@ -7,8 +7,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateCountryDto, UpdateCountryDto } from './model/dto';
-import { CountriesService } from './services/countries.service';
+import { CreateCountryDto, UpdateCountryDto } from './dto';
+import { CountriesService } from './countries.service';
 
 @Controller('countries')
 export class CountriesController {

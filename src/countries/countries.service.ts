@@ -1,28 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateCountryCommand } from '../commands/actions';
-import { CreateCountryDto, UpdateCountryDto } from '../model/dto';
-import { Country } from '../model/schemas';
-import { FindAllCountriesQuery } from '../queries/actions';
+import { CreateCountryCommand } from './commands/create-country.command';
+import { CreateCountryDto, UpdateCountryDto } from './dto';
+import { FindAllCountriesQuery } from './queries/find-all-countries.query';
+import { Country } from './schemas';
 
 @Injectable()
 export class CountriesService {
   constructor(private queryBus: QueryBus, private commandBus: CommandBus) {}
 
   public async create(createCountryDto: CreateCountryDto): Promise<Country> {
-    const countryResult = this.commandBus.execute(
-      new CreateCountryCommand(createCountryDto),
-    );
-
-    return countryResult;
+    return this.commandBus.execute(new CreateCountryCommand(createCountryDto));
   }
 
   findAll() {
-    const findAllQueryResult = this.queryBus.execute(
-      new FindAllCountriesQuery(),
-    );
-
-    return findAllQueryResult;
+    return this.queryBus.execute(new FindAllCountriesQuery());
   }
 
   findOne(id: number) {

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Country as CountryBase, ICountry } from '../entities';
+import { Country as CountryBase, ICountry } from '../entities/country.entity';
 
 @Schema()
 export class Country extends CountryBase implements ICountry {

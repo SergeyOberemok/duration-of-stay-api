@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateCountryDto } from '../model/dto';
-import { Country } from '../model/schemas';
+import { CreateCountryDto } from '../dto';
+import { Country } from '../schemas';
 
 @Injectable()
 export class CountriesCommandRepository {
@@ -11,8 +11,6 @@ export class CountriesCommandRepository {
   ) {}
 
   public async persist(createCountryDto: CreateCountryDto): Promise<Country> {
-    const createdCountry = new this.countryModel(createCountryDto).save();
-
-    return createdCountry;
+    return new this.countryModel(createCountryDto).save();
   }
 }

@@ -1,4 +1,6 @@
-import { ICountry } from './country.interface';
+export interface ICountry {
+  name: string;
+}
 
 export class Country implements ICountry {
   name: string;

@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
-import { commandHandlers } from './commands/handlers';
+import { countriesCommandHandlers } from './commands';
 import { CountriesController } from './countries.controller';
-import { Country, CountrySchema } from './model/schemas';
-import { queryHandlers } from './queries/handlers';
+import { CountriesService } from './countries.service';
+import { countriesQueryHandlers } from './queries';
 import { countryRepositories } from './repositories';
-import { CountriesService } from './services/countries.service';
+import { Country, CountrySchema } from './schemas';
 
 @Module({
   imports: [
@@ -15,10 +15,10 @@ import { CountriesService } from './services/countries.service';
   ],
   controllers: [CountriesController],
   providers: [
-    ...commandHandlers,
-    ...queryHandlers,
-    ...countryRepositories,
     CountriesService,
+    ...countryRepositories,
+    ...countriesCommandHandlers,
+    ...countriesQueryHandlers,
   ],
 })
 export class CountriesModule {}
