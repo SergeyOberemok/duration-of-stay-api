@@ -5,9 +5,11 @@ import { FindAllCountriesQuery } from './find-all-countries.query';
 
 @QueryHandler(FindAllCountriesQuery)
 export class FindAllCountriesHandler {
-  constructor(private countriesQueryRepository: CountriesQueryRepository) {}
+  constructor(
+    private readonly countriesQueryRepository: CountriesQueryRepository,
+  ) {}
 
-  public async execute(query: FindAllCountriesQuery): Promise<Country[]> {
+  async execute(query: FindAllCountriesQuery): Promise<Country[]> {
     return this.countriesQueryRepository.findAll(query);
   }
 }

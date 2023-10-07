@@ -1,0 +1,40 @@
+@hostname = localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@protocol = http
+@api = {{protocol}}://{{host}}/api
+
+### Stays API
+
+### All stays
+
+GET {{api}}/stays
+
+### Add stay
+
+POST {{api}}/stays
+content-type: application/json
+
+{
+    "title": "Current",
+    "startDate": "2019-06-28",
+    "country": "Poland"
+}
+
+### Find stay by id
+
+GET {{api}}/stays/6517e106863d515cb98fc64d
+
+### Queries
+
+### Get all stays duration
+
+GET {{api}}/query-stays/duration
+
+### Get stay duration by id
+
+GET {{api}}/query-stays/duration/6517e106863d515cb98fc64d
+
+### Test
+
+GET {{api}}

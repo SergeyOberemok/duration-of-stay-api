@@ -7,14 +7,14 @@ import { Country } from '../schemas';
 @Injectable()
 export class CountriesQueryRepository {
   constructor(
-    @InjectModel(Country.name) private countryModel: Model<Country>,
+    @InjectModel(Country.name) private readonly countryModel: Model<Country>,
   ) {}
 
-  public async findAll(query: FindAllCountriesQuery): Promise<Country[]> {
+  async findAll(query: FindAllCountriesQuery): Promise<Country[]> {
     return this.countryModel.find(query).exec();
   }
 
-  public async findById(id: string): Promise<Country> {
+  async findById(id: string): Promise<Country> {
     return this.countryModel.findById(id).exec();
   }
 }

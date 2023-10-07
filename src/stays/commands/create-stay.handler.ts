@@ -5,9 +5,11 @@ import { CreateStayCommand } from './create-stay.command';
 
 @CommandHandler(CreateStayCommand)
 export class CreateStayHandler implements ICommandHandler<CreateStayCommand> {
-  constructor(private staysCommandRepository: StaysCommandRepository) {}
+  constructor(
+    private readonly staysCommandRepository: StaysCommandRepository,
+  ) {}
 
-  public async execute(command: CreateStayCommand): Promise<Stay> {
+  async execute(command: CreateStayCommand): Promise<Stay> {
     return this.staysCommandRepository.persist(command.stay);
   }
 }

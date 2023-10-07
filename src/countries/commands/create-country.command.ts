@@ -1,5 +1,5 @@
 import { CreateCountryDto } from '../dto';
 
 export class CreateCountryCommand {
-  constructor(public readonly country: CreateCountryDto) {}
+  constructor(readonly country: CreateCountryDto) {}
 }

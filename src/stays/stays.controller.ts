@@ -27,7 +27,7 @@ export class StaysController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.staysService.findOne(+id);
+    return this.staysService.findOne(id);
   }
 
   @Patch(':id')

@@ -7,9 +7,11 @@ import { CreateCountryCommand } from './create-country.command';
 export class CreateCountryHandler
   implements ICommandHandler<CreateCountryCommand>
 {
-  constructor(private countriesCommandRepository: CountriesCommandRepository) {}
+  constructor(
+    private readonly countriesCommandRepository: CountriesCommandRepository,
+  ) {}
 
-  public async execute(command: CreateCountryCommand): Promise<Country> {
+  async execute(command: CreateCountryCommand): Promise<Country> {
     return await this.countriesCommandRepository.persist(command.country);
   }
 }

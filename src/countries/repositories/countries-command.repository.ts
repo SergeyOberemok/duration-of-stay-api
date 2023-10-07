@@ -7,10 +7,10 @@ import { Country } from '../schemas';
 @Injectable()
 export class CountriesCommandRepository {
   constructor(
-    @InjectModel(Country.name) private countryModel: Model<Country>,
+    @InjectModel(Country.name) private readonly countryModel: Model<Country>,
   ) {}
 
-  public async persist(createCountryDto: CreateCountryDto): Promise<Country> {
+  async persist(createCountryDto: CreateCountryDto): Promise<Country> {
     return new this.countryModel(createCountryDto).save();
   }
 }

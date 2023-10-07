@@ -7,9 +7,12 @@ import { Country } from './schemas';
 
 @Injectable()
 export class CountriesService {
-  constructor(private queryBus: QueryBus, private commandBus: CommandBus) {}
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+  ) {}
 
-  public async create(createCountryDto: CreateCountryDto): Promise<Country> {
+  async create(createCountryDto: CreateCountryDto): Promise<Country> {
     return this.commandBus.execute(new CreateCountryCommand(createCountryDto));
   }
 

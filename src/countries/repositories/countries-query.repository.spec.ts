@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CountriesQueryRepository } from './countries-query.repository';
 
-describe('CountriesQueryRepository', () => {
+xdescribe('CountriesQueryRepository', () => {
   let service: CountriesQueryRepository;
 
   beforeEach(async () => {

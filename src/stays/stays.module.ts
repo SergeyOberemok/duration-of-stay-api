@@ -7,13 +7,14 @@ import { staysRepositories } from './repositories';
 import { Stay, StaySchema } from './schemas/stay.schema';
 import { StaysController } from './stays.controller';
 import { StaysService } from './stays.service';
+import { QueryStaysController } from './query-stays.controller';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Stay.name, schema: StaySchema }]),
     CqrsModule,
   ],
-  controllers: [StaysController],
+  controllers: [StaysController, QueryStaysController],
   providers: [
     StaysService,
     ...staysRepositories,

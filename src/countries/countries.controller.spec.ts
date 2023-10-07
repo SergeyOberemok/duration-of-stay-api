@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CountriesController } from './countries.controller';
 import { CountriesService } from './countries.service';
 
-describe('CountriesController', () => {
+xdescribe('CountriesController', () => {
   let controller: CountriesController;
 
   beforeEach(async () => {

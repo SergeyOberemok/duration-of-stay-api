@@ -6,10 +6,10 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  public findAll(): Observable<User[]> {
+  findAll(): Observable<User[]> {
     return this.usersService.findAll();
   }
 

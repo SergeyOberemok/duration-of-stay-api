@@ -5,9 +5,9 @@ import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
-  public signIn(email: string, password: string): Observable<User> {
+  signIn(email: string, password: string): Observable<User> {
     return this.usersService.findOne(email).pipe(
       mergeMap((user: User) =>
         iif(

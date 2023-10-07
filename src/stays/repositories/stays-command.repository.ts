@@ -6,9 +6,11 @@ import { Stay } from '../schemas/stay.schema';
 
 @Injectable()
 export class StaysCommandRepository {
-  constructor(@InjectModel(Stay.name) private stayModel: Model<Stay>) {}
+  constructor(
+    @InjectModel(Stay.name) private readonly stayModel: Model<Stay>,
+  ) {}
 
-  public async persist(createStayDto: CreateStayDto): Promise<Stay> {
+  async persist(createStayDto: CreateStayDto): Promise<Stay> {
     return new this.stayModel(createStayDto).save();
   }
 }
