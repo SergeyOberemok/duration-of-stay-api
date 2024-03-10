@@ -1,13 +1,37 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
-import { staysCommandHandlers } from './commands';
-import { staysQueryHandlers } from './queries';
-import { staysRepositories } from './repositories';
+import {
+  CreateStayHandler,
+  CreateStaysHandler,
+  DeleteStayHandler,
+} from './commands';
+import {
+  FindStayHandler,
+  FindStaysHandler,
+  GetStayDurationHandler,
+  GetStaysDurationHandler,
+} from './queries';
+import { QueryStaysController } from './query-stays.controller';
+import { StaysCommandRepository, StaysQueryRepository } from './repositories';
 import { Stay, StaySchema } from './schemas/stay.schema';
 import { StaysController } from './stays.controller';
 import { StaysService } from './stays.service';
-import { QueryStaysController } from './query-stays.controller';
+
+const staysCommandHandlers = [
+  CreateStayHandler,
+  CreateStaysHandler,
+  DeleteStayHandler,
+];
+
+const staysQueryHandlers = [
+  FindStayHandler,
+  FindStaysHandler,
+  GetStayDurationHandler,
+  GetStaysDurationHandler,
+];
+
+const staysRepositories = [StaysQueryRepository, StaysCommandRepository];
 
 @Module({
   imports: [

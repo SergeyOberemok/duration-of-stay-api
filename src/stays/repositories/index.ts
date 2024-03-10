@@ -1,4 +1,2 @@
-import { StaysCommandRepository } from './stays-command.repository';
-import { StaysQueryRepository } from './stays-query.repository';
-
-export const staysRepositories = [StaysCommandRepository, StaysQueryRepository];
+export * from './stays-command.repository';
+export * from './stays-query.repository';

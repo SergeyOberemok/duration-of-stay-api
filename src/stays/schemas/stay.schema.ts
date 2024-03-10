@@ -8,6 +8,7 @@ export interface IStay {
   startDate: Date;
   endDate?: Date;
   country?: ICountry;
+  isActive: boolean;
 }
 
 @Schema({
@@ -23,6 +24,8 @@ export class Stay implements IStay {
   endDate?: Date;
   @Prop()
   country?: Country;
+  @Prop()
+  isActive: boolean;
 
   get daysDuration(): number {
     return DateCalculator.getDaysDuration(this.startDate, this.endDate);

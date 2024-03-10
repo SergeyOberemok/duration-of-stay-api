@@ -19,6 +19,11 @@ export class CountriesController {
     return this.countriesService.create(createCountryDto);
   }
 
+  @Post('many')
+  createMany(@Body() createCountryDtos: CreateCountryDto[]) {
+    return this.countriesService.createMany(createCountryDtos);
+  }
+
   @Get()
   findAll() {
     return this.countriesService.findAll();

@@ -1,15 +1,14 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
+import { CreateStayDto, UpdateStayDto } from './dto';
 import { StaysService } from './stays.service';
-import { CreateStayDto } from './dto/create-stay.dto';
-import { UpdateStayDto } from './dto/update-stay.dto';
 
 @Controller('stays')
 export class StaysController {
@@ -18,6 +17,11 @@ export class StaysController {
   @Post()
   create(@Body() createStayDto: CreateStayDto) {
     return this.staysService.create(createStayDto);
+  }
+
+  @Post('many')
+  createMany(@Body() createStayDtos: CreateStayDto[]) {
+    return this.staysService.createMany(createStayDtos);
   }
 
   @Get()
