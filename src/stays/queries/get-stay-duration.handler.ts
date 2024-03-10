@@ -1,10 +1,12 @@
-import { QueryHandler } from '@nestjs/cqrs';
+import { ICommandHandler, QueryHandler } from '@nestjs/cqrs';
 import { StaysQueryRepository } from '../repositories/stays-query.repository';
 import { Stay } from '../schemas/stay.schema';
 import { GetStayDurationQuery } from './get-stay-duration.query';
 
 @QueryHandler(GetStayDurationQuery)
-export class GetStayDurationHandler {
+export class GetStayDurationHandler
+  implements ICommandHandler<GetStayDurationQuery>
+{
   constructor(private readonly staysRepository: StaysQueryRepository) {}
 
   async execute({ payload: { id } }: GetStayDurationQuery) {

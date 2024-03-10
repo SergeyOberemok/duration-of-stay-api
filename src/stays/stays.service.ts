@@ -1,16 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { FindOrCreateCountriesCommand } from 'src/countries/commands';
 import { FindOrCreateCountryCommand } from 'src/countries/commands/find-or-create-country.command';
 import { YearsMonthsDays } from 'src/domain/date-calculator/shared';
-import { CreateStayCommand } from './commands/create-stay.command';
-import { CreateStayDto } from './dto/create-stay.dto';
-import { UpdateStayDto } from './dto/update-stay.dto';
-import { FindStayQuery } from './queries/find-stay.query';
-import { FindStaysQuery } from './queries/find-stays.query';
-import { GetStayDurationQuery } from './queries/get-stay-duration.query';
-import { GetStaysDurationQuery } from './queries/get-stays-duration.query';
+import {
+  CreateStayCommand,
+  CreateStaysCommand,
+  DeleteStayCommand,
+} from './commands';
+import { CreateStayDto, UpdateStayDto } from './dto';
+import {
+  FindStayQuery,
+  FindStaysQuery,
+  GetStayDurationQuery,
+  GetStaysDurationQuery,
+} from './queries';
 import { Stay } from './schemas/stay.schema';
-import { DeleteStayCommand } from './commands/delete-stay.command';
 
 @Injectable()
 export class StaysService {
@@ -19,12 +24,22 @@ export class StaysService {
     private readonly commandBus: CommandBus,
   ) {}
 
-  async create(createStayDto: CreateStayDto): Promise<Stay> {
-    await this.commandBus.execute(
+  create(createStayDto: CreateStayDto): Promise<Stay> {
+    this.commandBus.execute(
       new FindOrCreateCountryCommand(createStayDto.country),
     );
 
     return this.commandBus.execute(new CreateStayCommand(createStayDto));
+  }
+
+  createMany(createStayDtos: CreateStayDto[]): Promise<Stay[]> {
+    this.commandBus.execute(
+      new FindOrCreateCountriesCommand(
+        createStayDtos.map((createStayDto) => createStayDto.country),
+      ),
+    );
+
+    return this.commandBus.execute(new CreateStaysCommand(createStayDtos));
   }
 
   findAll(): Promise<Stay[]> {

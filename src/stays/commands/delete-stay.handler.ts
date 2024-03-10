@@ -1,9 +1,9 @@
-import { CommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { StaysCommandRepository } from '../repositories/stays-command.repository';
 import { DeleteStayCommand } from './delete-stay.command';
 
 @CommandHandler(DeleteStayCommand)
-export class DeleteStayHandler {
+export class DeleteStayHandler implements ICommandHandler<DeleteStayCommand> {
   constructor(
     private readonly staysCommandRepository: StaysCommandRepository,
   ) {}

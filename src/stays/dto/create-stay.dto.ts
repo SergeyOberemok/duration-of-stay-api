@@ -6,4 +6,5 @@ export class CreateStayDto implements IStay {
   startDate: Date;
   endDate?: Date;
   country?: CreateCountryDto;
+  isActive: boolean;
 }

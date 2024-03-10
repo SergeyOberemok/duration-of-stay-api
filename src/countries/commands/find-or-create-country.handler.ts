@@ -1,25 +1,25 @@
-import { CommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CountriesCommandRepository } from '../repositories/countries-command.repository';
 import { CountriesQueryRepository } from '../repositories/countries-query.repository';
 import { Country } from '../schemas/country.schema';
 import { FindOrCreateCountryCommand } from './find-or-create-country.command';
 
 @CommandHandler(FindOrCreateCountryCommand)
-export class FindOrCreateCountryHandler {
+export class FindOrCreateCountryHandler
+  implements ICommandHandler<FindOrCreateCountryCommand>
+{
   constructor(
     private readonly countriesCommandRepository: CountriesCommandRepository,
     private readonly countriesQueryRepository: CountriesQueryRepository,
   ) {}
 
-  async execute({
-    country: { name },
-  }: FindOrCreateCountryCommand): Promise<Country> {
-    const foundCountry = await this.countriesQueryRepository.findOne({ name });
+  execute({ country: { name } }: FindOrCreateCountryCommand): Promise<Country> {
+    return this.countriesQueryRepository.findOne({ name }).then((country) => {
+      if (country) {
+        return country;
+      }
 
-    if (foundCountry) {
-      return foundCountry;
-    }
-
-    return this.countriesCommandRepository.persist({ name });
+      return this.countriesCommandRepository.persist({ name });
+    });
   }
 }

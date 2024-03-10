@@ -1,7 +1,2 @@
-import { CountriesCommandRepository } from './countries-command.repository';
-import { CountriesQueryRepository } from './countries-query.repository';
-
-export const countryRepositories = [
-  CountriesQueryRepository,
-  CountriesCommandRepository,
-];
+export * from './countries-command.repository';
+export * from './countries-query.repository';

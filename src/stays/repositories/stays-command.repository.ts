@@ -14,6 +14,12 @@ export class StaysCommandRepository {
     return new this.stayModel(createStayDto).save();
   }
 
+  persistMany(stays: CreateStayDto[]): Promise<Stay[]> {
+    return Promise.all(
+      stays.map((CreateStayDto) => new this.stayModel(CreateStayDto).save()),
+    );
+  }
+
   async remove(id: string): Promise<boolean> {
     return await this.stayModel
       .deleteOne({ _id: new Types.ObjectId(id) })
