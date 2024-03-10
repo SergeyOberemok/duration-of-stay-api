@@ -4,7 +4,7 @@
 @protocol = http
 @api = {{protocol}}://{{host}}/api
 
-### Stays API
+### Stays
 
 ### All stays
 
@@ -13,17 +13,44 @@ GET {{api}}/stays
 ### Add stay
 
 POST {{api}}/stays
-content-type: application/json
+Content-Type: application/json
 
 {
-    "title": "Current",
-    "startDate": "2019-06-28",
-    "country": "Poland"
+    "title": "Preparing for being man",
+    "startDate": "2019-12-15",
+    "endDate": "2019-12-25",
+    "country":
+    {
+        "name": "Ukraine",
+        "cities":
+        [
+            "Kyiv"
+        ]
+    }
 }
 
 ### Find stay by id
 
 GET {{api}}/stays/6517e106863d515cb98fc64d
+
+### Delete stay by id
+
+DELETE  {{api}}/stays/6534e905865afaa46290f95c
+
+### Countries
+
+### All countries
+
+GET {{api}}/countries
+
+### Add country
+
+POST {{api}}/countries
+Content-Type: application/json
+
+{
+    "name": "Germany"
+}
 
 ### Queries
 

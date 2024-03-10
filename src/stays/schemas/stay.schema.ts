@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Country, ICountry } from 'src/countries/schemas/country.schema';
 import { DateCalculator } from 'src/domain/date-calculator/date-calculator';
 import { YearsMonthsDays } from 'src/domain/date-calculator/shared';
 
@@ -6,7 +7,7 @@ export interface IStay {
   title: string;
   startDate: Date;
   endDate?: Date;
-  country?: string;
+  country?: ICountry;
 }
 
 @Schema({
@@ -21,7 +22,7 @@ export class Stay implements IStay {
   @Prop()
   endDate?: Date;
   @Prop()
-  country?: string;
+  country?: Country;
 
   get daysDuration(): number {
     return DateCalculator.getDaysDuration(this.startDate, this.endDate);

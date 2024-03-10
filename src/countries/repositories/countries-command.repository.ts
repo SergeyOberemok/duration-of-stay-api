@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateCountryDto } from '../dto';
-import { Country } from '../schemas';
+import { Country } from '../schemas/country.schema';
 
 @Injectable()
 export class CountriesCommandRepository {

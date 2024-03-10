@@ -6,7 +6,7 @@ import { CountriesController } from './countries.controller';
 import { CountriesService } from './countries.service';
 import { countriesQueryHandlers } from './queries';
 import { countryRepositories } from './repositories';
-import { Country, CountrySchema } from './schemas';
+import { Country, CountrySchema } from './schemas/country.schema';
 
 @Module({
   imports: [

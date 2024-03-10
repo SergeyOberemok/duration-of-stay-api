@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { FindAllCountriesQuery } from '../queries/find-all-countries.query';
-import { Country } from '../schemas';
+import { Country } from '../schemas/country.schema';
 
 @Injectable()
 export class CountriesQueryRepository {
@@ -10,11 +9,15 @@ export class CountriesQueryRepository {
     @InjectModel(Country.name) private readonly countryModel: Model<Country>,
   ) {}
 
-  async findAll(query: FindAllCountriesQuery): Promise<Country[]> {
+  async findAll(query): Promise<Country[]> {
     return this.countryModel.find(query).exec();
   }
 
   async findById(id: string): Promise<Country> {
     return this.countryModel.findById(id).exec();
+  }
+
+  async findOne(query): Promise<Country> {
+    return this.countryModel.findOne(query).exec();
   }
 }

@@ -37,6 +37,6 @@ export class StaysController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.staysService.remove(+id);
+    return this.staysService.remove(id);
   }
 }

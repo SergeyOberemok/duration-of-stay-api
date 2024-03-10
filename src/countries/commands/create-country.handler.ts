@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { Country } from 'src/countries/schemas';
 import { CountriesCommandRepository } from 'src/countries/repositories/countries-command.repository';
+import { Country } from 'src/countries/schemas/country.schema';
 import { CreateCountryCommand } from './create-country.command';
 
 @CommandHandler(CreateCountryCommand)
@@ -11,7 +11,7 @@ export class CreateCountryHandler
     private readonly countriesCommandRepository: CountriesCommandRepository,
   ) {}
 
-  async execute(command: CreateCountryCommand): Promise<Country> {
-    return await this.countriesCommandRepository.persist(command.country);
+  async execute({ country }: CreateCountryCommand): Promise<Country> {
+    return await this.countriesCommandRepository.persist(country);
   }
 }

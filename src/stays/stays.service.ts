@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { FindOrCreateCountryCommand } from 'src/countries/commands/find-or-create-country.command';
 import { YearsMonthsDays } from 'src/domain/date-calculator/shared';
 import { CreateStayCommand } from './commands/create-stay.command';
 import { CreateStayDto } from './dto/create-stay.dto';
@@ -9,6 +10,7 @@ import { FindStaysQuery } from './queries/find-stays.query';
 import { GetStayDurationQuery } from './queries/get-stay-duration.query';
 import { GetStaysDurationQuery } from './queries/get-stays-duration.query';
 import { Stay } from './schemas/stay.schema';
+import { DeleteStayCommand } from './commands/delete-stay.command';
 
 @Injectable()
 export class StaysService {
@@ -18,6 +20,10 @@ export class StaysService {
   ) {}
 
   async create(createStayDto: CreateStayDto): Promise<Stay> {
+    await this.commandBus.execute(
+      new FindOrCreateCountryCommand(createStayDto.country),
+    );
+
     return this.commandBus.execute(new CreateStayCommand(createStayDto));
   }
 
@@ -33,8 +39,8 @@ export class StaysService {
     return `This action updates a #${id} stay`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} stay`;
+  remove(id: string) {
+    return this.commandBus.execute(new DeleteStayCommand(id));
   }
 
   getStaysDuration(): Promise<number> {
