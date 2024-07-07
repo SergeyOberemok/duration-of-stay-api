@@ -13,6 +13,8 @@ export interface IStay {
 
 @Schema({
   virtuals: true,
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true },
 })
 export class Stay implements IStay {
   @Prop({ required: true })
@@ -31,7 +33,7 @@ export class Stay implements IStay {
     return DateCalculator.getDaysDuration(this.startDate, this.endDate);
   }
 
-  get yearsMonthsDaysDuration(): YearsMonthsDays {
+  get durations(): YearsMonthsDays {
     return DateCalculator.getYearsMonthsDaysDuration(
       this.startDate,
       this.endDate,
@@ -44,7 +46,7 @@ export const StaySchema = SchemaFactory.createForClass(Stay);
 StaySchema.virtual('daysDuration').get(function (this: Stay) {
   return DateCalculator.getDaysDuration(this.startDate, this.endDate);
 });
-StaySchema.virtual('yearsMonthsDaysDuration').get(function (this: Stay) {
+StaySchema.virtual('durations').get(function (this: Stay) {
   return DateCalculator.getYearsMonthsDaysDuration(
     this.startDate,
     this.endDate,
