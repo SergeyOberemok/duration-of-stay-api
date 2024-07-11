@@ -2,27 +2,36 @@ import * as moment from 'moment';
 import { YearsMonthsDays } from './shared';
 
 export class DateCalculator {
-  static getDuration(startDate: Date, endDate?: Date): moment.Duration {
-    const start = moment(startDate);
-    const end = moment(endDate);
-    const diff = end.diff(start);
+  public static getDuration(start: Date, end?: Date): moment.Duration {
+    const startDate = moment(start);
+    const endDate = moment(end);
 
-    return moment.duration(diff);
+    if (startDate.isSame(end)) {
+      return moment.duration(1, 'day');
+    }
+
+    // startDate.startOf('day');
+    // endDate.endOf('day');
+
+    const difference = endDate.diff(startDate);
+
+    return moment.duration(difference);
   }
 
-  static getDaysDuration(startDate: Date, endDate?: Date): number {
-    return DateCalculator.getDuration(startDate, endDate).asDays();
+  public static getDaysDuration(start: Date, end?: Date): number {
+    const days = this.getDuration(start, end).asDays();
+    return Math.round(days);
   }
 
-  static getYearsDuration(startDate: Date, endDate?: Date): number {
-    return DateCalculator.getDuration(startDate, endDate).asYears();
+  public static getYearsDuration(start: Date, end?: Date): number {
+    return this.getDuration(start, end).asYears();
   }
 
-  static getYearsMonthsDaysDuration(
-    startDate: Date,
-    endDate?: Date,
+  public static getYearsMonthsDaysDuration(
+    start: Date,
+    end?: Date,
   ): YearsMonthsDays {
-    const duration = DateCalculator.getDuration(startDate, endDate);
+    const duration = this.getDuration(start, end);
 
     return {
       years: duration.years(),
