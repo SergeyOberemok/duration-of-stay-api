@@ -12,6 +12,6 @@ export class GetStayDurationHandler
   async execute({ payload: { id } }: GetStayDurationQuery) {
     const stay: Stay = await this.staysRepository.findById(id);
 
-    return stay.durations;
+    return stay.daysDuration;
   }
 }

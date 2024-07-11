@@ -16,6 +16,7 @@ import {
   GetStaysDurationQuery,
 } from './queries';
 import { Stay } from './schemas/stay.schema';
+import { StaysDateMergerAdapter } from './shared';
 
 @Injectable()
 export class StaysService {
@@ -39,7 +40,11 @@ export class StaysService {
       ),
     );
 
-    return this.commandBus.execute(new CreateStaysCommand(createStayDtos));
+    const mergedByDatesStayDtos = StaysDateMergerAdapter.merge(createStayDtos);
+
+    return this.commandBus.execute(
+      new CreateStaysCommand(mergedByDatesStayDtos),
+    );
   }
 
   findAll(): Promise<Stay[]> {

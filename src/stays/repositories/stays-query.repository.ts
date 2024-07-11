@@ -10,7 +10,7 @@ export class StaysQueryRepository {
   ) {}
 
   async findAll(query: any): Promise<Stay[]> {
-    return this.stayModel.find(query).sort({ startDate: 1 }).exec();
+    return this.stayModel.find(query).sort({ start: 1 }).exec();
   }
 
   async findById(id: string): Promise<Stay> {

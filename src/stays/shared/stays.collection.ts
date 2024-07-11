@@ -9,7 +9,7 @@ export class StaysCollection extends Array<Stay> {
   public getDaysDuration(): number {
     const days = this.reduce(
       (acc, stay: Stay) =>
-        acc + DateCalculator.getDaysDuration(stay.startDate, stay.endDate),
+        acc + DateCalculator.getDaysDuration(stay.start, stay.end),
       0,
     );
 
